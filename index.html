@@ -96,33 +96,6 @@ body {
   font-weight: 400;
 }
 
-.scroll-cue {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  color: var(--gold-dim);
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  animation: fadeDown 2s ease-in-out infinite;
-}
-
-.scroll-cue::after {
-  content: '';
-  width: 1px;
-  height: 32px;
-  background: linear-gradient(to bottom, var(--gold-dim), transparent);
-}
-
-@keyframes fadeDown {
-  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
-  50% { opacity: 1; transform: translateX(-50%) translateY(6px); }
-}
 
 /* FILMS SECTION */
 .films-section {
@@ -135,7 +108,7 @@ body {
   font-size: 0.65rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--gold-dim);
+  color: var(--text-dim);
   margin-bottom: 16px;
 }
 
@@ -352,7 +325,6 @@ footer {
     with something unforgettable.<br><br>
     <em>Sound Made Visible. Lyrics Brought To Life.</em>
   </p>
-  <div class="scroll-cue">Our Films</div>
 </section>
 
 <!-- FILMS -->
