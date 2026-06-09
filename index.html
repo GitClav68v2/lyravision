@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LyriVision — Lyrics Brought To Life</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gold: #D4AF37;
+  --gold-dim: #8B7228;
+  --gold-pale: #F0D97A;
+  --black: #000000;
+  --near-black: #0A0A0A;
+  --dark: #111111;
+  --text: #E8E0CC;
+  --text-dim: #9A8F6E;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px 80px;
+  position: relative;
+  background: radial-gradient(ellipse at 50% 60%, #1a1200 0%, #000 65%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 800px 400px at 50% 70%, rgba(212,175,55,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-logo {
+  width: min(520px, 85vw);
+  margin-bottom: 32px;
+  filter: drop-shadow(0 0 40px rgba(212,175,55,0.25));
+  animation: logoGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+  from { filter: drop-shadow(0 0 30px rgba(212,175,55,0.2)); }
+  to   { filter: drop-shadow(0 0 60px rgba(212,175,55,0.4)); }
+}
+
+.tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  margin-bottom: 48px;
+}
+
+.divider-hero {
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  margin: 0 auto 48px;
+}
+
+.about {
+  max-width: 640px;
+  font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+  line-height: 1.9;
+  color: var(--text-dim);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+.about em {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--gold-dim);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: fadeDown 2s ease-in-out infinite;
+}
+
+.scroll-cue::after {
+  content: '';
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(to bottom, var(--gold-dim), transparent);
+}
+
+@keyframes fadeDown {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(6px); }
+}
+
+/* FILMS SECTION */
+.films-section {
+  background: var(--near-black);
+  padding: 100px 24px;
+}
+
+.section-label {
+  text-align: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 64px;
+  letter-spacing: 0.05em;
+}
+
+.films-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.film-card {
+  position: relative;
+  background: var(--dark);
+  border: 0.5px solid rgba(212,175,55,0.15);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s, transform 0.3s;
+  text-decoration: none;
+  display: block;
+}
+
+.film-card:hover {
+  border-color: rgba(212,175,55,0.5);
+  transform: translateY(-4px);
+}
+
+.film-thumb {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.film-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  filter: brightness(0.85);
+}
+
+.film-card:hover .film-thumb img {
+  transform: scale(1.04);
+  filter: brightness(1);
+}
+
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.film-card:hover .play-overlay {
+  opacity: 1;
+}
+
+.play-btn {
+  width: 56px;
+  height: 56px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-btn::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent var(--gold);
+  margin-left: 4px;
+}
+
+.film-info {
+  padding: 20px 24px 24px;
+}
+
+.film-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+
+.film-divider {
+  width: 40px;
+  height: 0.5px;
+  background: var(--gold-dim);
+  margin-bottom: 8px;
+  transition: width 0.3s;
+}
+
+.film-card:hover .film-divider {
+  width: 80px;
+}
+
+.film-watch {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* FOUNDERS */
+.founders-section {
+  background: var(--black);
+  padding: 100px 24px;
+  text-align: center;
+}
+
+.founders-grid {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  max-width: 700px;
+  margin: 0 auto 64px;
+}
+
+.founder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.founder-initial {
+  width: 64px;
+  height: 64px;
+  border: 0.5px solid var(--gold-dim);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.founder-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--gold);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.founder-role {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* CONTACT */
+.contact-section {
+  background: var(--near-black);
+  padding: 80px 24px;
+  text-align: center;
+  border-top: 0.5px solid rgba(212,175,55,0.1);
+}
+
+.contact-email {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--gold);
+  font-style: italic;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contact-email:hover { color: var(--gold-pale); }
+
+/* FOOTER */
+footer {
+  background: var(--black);
+  padding: 32px 24px;
+  text-align: center;
+  border-top: 0.5px solid rgba(212,175,55,0.08);
+}
+
+.footer-logo {
+  width: 160px;
+  margin: 0 auto 16px;
+  opacity: 0.7;
+}
+
+.footer-copy {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-logo" src="lv-logo.jpg" alt="LyriVision" onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block'">
+  <div id="logo-text" style="display:none; font-family:'Cormorant Garamond',serif; font-size:4rem; color:#D4AF37; letter-spacing:0.1em; margin-bottom:32px;">LyriVision</div>
+  <div class="tagline">Lyrics Brought To Life</div>
+  <div class="divider-hero"></div>
+  <p class="about">
+    LyriVision is an AI-powered music video production studio founded by musician 
+    <em>Tom Badalament</em> and creative technologist <em>David Clavadetscher</em>. 
+    We transform original songs into cinematic visual experiences — blending artificial intelligence 
+    with human artistry to create films that move, provoke, and endure. From Chicago blues to 
+    political satire to nu-disco, every LyriVision production begins with a great song and ends 
+    with something unforgettable.<br><br>
+    <em>Sound Made Visible. Lyrics Brought To Life.</em>
+  </p>
+  <div class="scroll-cue">Our Films</div>
+</section>
+
+<!-- FILMS -->
+<section class="films-section">
+  <p class="section-label">The Collection</p>
+  <h2 class="section-title">Films</h2>
+  <div class="films-grid">
+
+    <a class="film-card" href="https://www.youtube.com/watch?v=LquE2ePGNps" target="_blank" rel="noopener">
+      <div class="film-thumb">
+        <img src="https://img.youtube.com/vi/LquE2ePGNps/maxresdefault.jpg" alt="Good Morning, Iran" loading="lazy">
+        <div class="play-overlay"><div class="play-btn"></div></div>
+      </div>
+      <div class="film-info">
+        <div class="film-title">Good Morning, Iran</div>
+        <div class="film-divider"></div>
+        <div class="film-watch">Watch on YouTube</div>
+      </div>
+    </a>
+
+    <a class="film-card" href="https://www.youtube.com/watch?v=QrtL_1xCYBk" target="_blank" rel="noopener">
+      <div class="film-thumb">
+        <img src="https://img.youtube.com/vi/QrtL_1xCYBk/maxresdefault.jpg" alt="She's Got To Dance" loading="lazy">
+        <div class="play-overlay"><div class="play-btn"></div></div>
+      </div>
+      <div class="film-info">
+        <div class="film-title">She's Got To Dance</div>
+        <div class="film-divider"></div>
+        <div class="film-watch">Watch on YouTube</div>
+      </div>
+    </a>
+
+    <a class="film-card" href="https://www.youtube.com/watch?v=YQyu94rmr5I" target="_blank" rel="noopener">
+      <div class="film-thumb">
+        <img src="https://img.youtube.com/vi/YQyu94rmr5I/maxresdefault.jpg" alt="Optimus Robot" loading="lazy">
+        <div class="play-overlay"><div class="play-btn"></div></div>
+      </div>
+      <div class="film-info">
+        <div class="film-title">Optimus Robot</div>
+        <div class="film-divider"></div>
+        <div class="film-watch">Watch on YouTube</div>
+      </div>
+    </a>
+
+    <a class="film-card" href="https://www.youtube.com/watch?v=cqeUVGiL_-I" target="_blank" rel="noopener">
+      <div class="film-thumb">
+        <img src="https://img.youtube.com/vi/cqeUVGiL_-I/maxresdefault.jpg" alt="NYC" loading="lazy">
+        <div class="play-overlay"><div class="play-btn"></div></div>
+      </div>
+      <div class="film-info">
+        <div class="film-title">NYC</div>
+        <div class="film-divider"></div>
+        <div class="film-watch">Watch on YouTube</div>
+      </div>
+    </a>
+
+    <a class="film-card" href="https://www.youtube.com/watch?v=eL-g2r0U0CA" target="_blank" rel="noopener">
+      <div class="film-thumb">
+        <img src="https://img.youtube.com/vi/eL-g2r0U0CA/maxresdefault.jpg" alt="Lost Angels, California" loading="lazy">
+        <div class="play-overlay"><div class="play-btn"></div></div>
+      </div>
+      <div class="film-info">
+        <div class="film-title">Lost Angels, California</div>
+        <div class="film-divider"></div>
+        <div class="film-watch">Watch on YouTube</div>
+      </div>
+    </a>
+
+    <a class="film-card" href="https://www.youtube.com/watch?v=vW4GXcL3CIU" target="_blank" rel="noopener">
+      <div class="film-thumb">
+        <img src="https://img.youtube.com/vi/vW4GXcL3CIU/maxresdefault.jpg" alt="Mayor Johnson, Can You Hear Me?" loading="lazy">
+        <div class="play-overlay"><div class="play-btn"></div></div>
+      </div>
+      <div class="film-info">
+        <div class="film-title">Mayor Johnson, Can You Hear Me?</div>
+        <div class="film-divider"></div>
+        <div class="film-watch">Watch on YouTube</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- FOUNDERS -->
+<section class="founders-section">
+  <p class="section-label">The Studio</p>
+  <h2 class="section-title">Creative Team</h2>
+  <div class="founders-grid">
+    <div class="founder">
+      <div class="founder-initial">T</div>
+      <div class="founder-name">Tom Badalament</div>
+      <div class="founder-role">Lyrics & Music</div>
+    </div>
+    <div class="founder">
+      <div class="founder-initial">D</div>
+      <div class="founder-name">David Clavadetscher</div>
+      <div class="founder-role">AI / AV Production</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section">
+  <p class="section-label">Get In Touch</p>
+  <h2 class="section-title" style="margin-bottom:32px;">Contact</h2>
+  <a class="contact-email" href="mailto:lyrivision.ai@gmail.com">lyrivision.ai@gmail.com</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img class="footer-logo" src="lv-logo.jpg" alt="LyriVision" onerror="this.style.display='none'">
+  <p class="footer-copy">© 2026 LyriVision — All Rights Reserved — LyriVisionAI.com</p>
+</footer>
+
+</body>
+</html>
