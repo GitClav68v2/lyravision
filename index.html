@@ -276,28 +276,14 @@ body {
   gap: 80px;
   flex-wrap: wrap;
   max-width: 700px;
-  margin: 0 auto 64px;
+  margin: 0 auto 40px;
 }
 
 .founder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-}
-
-.founder-initial {
-  width: 64px;
-  height: 64px;
-  border: 0.5px solid var(--gold-dim);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  color: var(--gold);
-  font-weight: 500;
+  gap: 8px;
 }
 
 .founder-name {
@@ -313,14 +299,6 @@ body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-dim);
-}
-
-/* CONTACT */
-.contact-section {
-  background: var(--near-black);
-  padding: 80px 24px;
-  text-align: center;
-  border-top: 0.5px solid rgba(212,175,55,0.1);
 }
 
 .contact-email {
@@ -458,28 +436,21 @@ footer {
   </div>
 </section>
 
-<!-- FOUNDERS -->
+<!-- FOUNDERS & CONTACT -->
 <section class="founders-section">
   <p class="section-label">The Studio</p>
   <h2 class="section-title">Creative Team</h2>
   <div class="founders-grid">
     <div class="founder">
-      <div class="founder-initial">T</div>
       <div class="founder-name">Tom Badalament</div>
       <div class="founder-role">Lyrics & Music</div>
     </div>
     <div class="founder">
-      <div class="founder-initial">D</div>
       <div class="founder-name">David Clavadetscher</div>
       <div class="founder-role">AI / AV Production</div>
     </div>
   </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact-section">
-  <p class="section-label">Get In Touch</p>
-  <h2 class="section-title" style="margin-bottom:32px;">Contact</h2>
+  <div class="divider-hero" style="margin-bottom:32px;"></div>
   <a class="contact-email" href="mailto:lyrivision.ai@gmail.com">lyrivision.ai@gmail.com</a>
 </section>
 
