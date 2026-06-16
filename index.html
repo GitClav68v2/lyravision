@@ -451,9 +451,32 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <img class="footer-logo" src="lv-logo.png" alt="LyriVision" onerror="this.style.display='none'">
+  <img class="footer-logo" id="footerLogo" src="lv-logo.png" alt="LyriVision" onerror="this.style.display='none'" style="cursor:pointer;" title="Click to play">
+  <audio id="themeAudio" src="lyrics-brought-to-life.mp3" preload="none"></audio>
   <p class="footer-copy">© 2026 LyriVisionAI — All Rights Reserved — LyriVisionAI.com</p>
 </footer>
+
+<script>
+(function() {
+  var logo = document.getElementById('footerLogo');
+  var audio = document.getElementById('themeAudio');
+  logo.addEventListener('click', function() {
+    if (audio.paused) {
+      audio.play();
+      logo.style.opacity = '1';
+      logo.title = 'Click to pause';
+    } else {
+      audio.pause();
+      logo.style.opacity = '0.6';
+      logo.title = 'Click to play';
+    }
+  });
+  audio.addEventListener('ended', function() {
+    logo.style.opacity = '0.6';
+    logo.title = 'Click to play';
+  });
+})();
+</script>
 
 </body>
 </html>
